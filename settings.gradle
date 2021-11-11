@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'NFP_TJ-java'
-include('lib')
+include('NFP_TJ-java-SDK')
