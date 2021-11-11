@@ -4,11 +4,13 @@
 package com.github.qq120011676.nfptj;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class LibraryTest {
-    @Test void someLibraryMethodReturnsTrue() {
-        Library classUnderTest = new Library();
+class NFPTJTest {
+    @Test
+    void someLibraryMethodReturnsTrue() {
+        NFPTJ classUnderTest = new NFPTJ();
         assertTrue(classUnderTest.someLibraryMethod(), "someLibraryMethod should return 'true'");
     }
 }

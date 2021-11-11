@@ -3,7 +3,7 @@
  */
 package com.github.qq120011676.nfptj;
 
-public class Library {
+public class NFPTJ {
     public boolean someLibraryMethod() {
         return true;
     }
