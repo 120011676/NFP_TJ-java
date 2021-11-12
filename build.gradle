@@ -1,0 +1,25 @@
+plugins {
+    id "base"
+    id "org.sonarqube" version "3.0"
+}
+
+description = '天津网络货运平台-SDK java版本'
+
+allprojects {
+    group = 'com.github.qq120011676'
+    version = '1.2.1_1629863331149.2.1'
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+
+    sourceCompatibility = 8
+    targetCompatibility = 8
+}
