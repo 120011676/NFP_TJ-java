@@ -10,6 +10,11 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -89,7 +94,7 @@ public class NFPTJ {
         return jsonObject.getStr("token");
     }
 
-    public boolean driver(DriverRO ro) {
+    public boolean driver(DriverRO ro) throws JAXBException, IOException {
         return driver(ro, null);
     }
 
@@ -100,11 +105,11 @@ public class NFPTJ {
      * @param messageId 消息id
      * @return true成功，false失败
      */
-    public boolean driver(DriverRO ro, String messageId) {
+    public boolean driver(DriverRO ro, String messageId) throws JAXBException, IOException {
         if (StrUtil.isBlank(messageId)) {
             messageId = UUID.randomUUID().toString().replaceAll("-", "");
         }
-        return send("WLHY_JSY1001", "驾驶员信息单", messageId, null);
+        return send("WLHY_JSY1001", "驾驶员信息单", toXml(ro), messageId);
     }
 
     /**
@@ -136,7 +141,7 @@ public class NFPTJ {
         String json = post("/wlhy/send", JSONUtil.createObj()
                 .set("IPCType", ipcType)
                 .set("DocumentName", documentName)
-                .set("EncryptedContent", SmUtil.sm2(null, publicKey).encryptBase64(content, KeyType.PublicKey))
+                .set("EncryptedContent", SmUtil.sm2(null, publicKey).encryptBcd(content, KeyType.PublicKey))
                 .set("MessageReferenceNumber", messageReferenceNumber)
                 .set("MessageSendingDateTime", messageSendingDateTime)
                 .set("UserId", userId)
@@ -165,6 +170,16 @@ public class NFPTJ {
     protected String reToken() {
         token = applyToken();
         return token;
+    }
+
+    protected String toXml(Object obj) throws JAXBException, IOException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        try (StringWriter stringWriter = new StringWriter()) {
+            marshaller.marshal(obj, stringWriter);
+            stringWriter.flush();
+            return stringWriter.toString();
+        }
     }
 
     protected String post(String uri, String body) {
