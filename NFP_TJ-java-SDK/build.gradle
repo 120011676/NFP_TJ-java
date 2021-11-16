@@ -28,6 +28,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:+'
     annotationProcessor 'org.projectlombok:lombok:+'
     implementation 'cn.hutool:hutool-all:+'
+    implementation 'org.bouncycastle:bcprov-jdk15to18:+'
+    implementation 'com.sun.xml.bind:jaxb-impl:+'
+    implementation 'javax.xml.bind:jaxb-api:+'
+
 }
 
 tasks.named('test') {
