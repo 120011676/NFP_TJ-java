@@ -37,6 +37,7 @@ public class NFPTJ {
             baseUrl = "http://218.67.246.252:7999";
         }
         this.baseUrl = baseUrl;
+        token();
     }
 
     public String getUserId() {
@@ -59,9 +60,6 @@ public class NFPTJ {
         return token;
     }
 
-    {
-        token();
-    }
 
     /**
      * 申请令牌接口
@@ -84,7 +82,6 @@ public class NFPTJ {
                 .set("userId", userId)
                 .set("password", DigestUtil.md5Hex(password))
                 .toString());
-        System.out.println(json);
         JSONObject jsonObject = JSONUtil.parseObj(json);
         if (!"00000".equals(jsonObject.getStr("code"))) {
             throw new RuntimeException(json);
