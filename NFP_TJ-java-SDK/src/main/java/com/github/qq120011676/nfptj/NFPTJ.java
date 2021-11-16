@@ -9,6 +9,7 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.github.qq120011676.nfptj.ro.DriverRO;
+import com.github.qq120011676.nfptj.ro.VehicleRO;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -106,11 +107,30 @@ public class NFPTJ {
      * @return true成功，false失败
      */
     public boolean driver(DriverRO ro, String messageId) throws JAXBException, IOException {
-        if (StrUtil.isBlank(messageId)) {
-            messageId = UUID.randomUUID().toString().replaceAll("-", "");
-        }
         return send("WLHY_JSY1001", "驾驶员信息单", toXml(ro), messageId);
     }
+
+    /**
+     * 车辆信息 上报
+     *
+     * @param ro        车辆信息
+     * @return true成功，false失败
+     */
+    public boolean vehicle(VehicleRO ro) throws JAXBException, IOException {
+        return vehicle(ro, null);
+    }
+
+    /**
+     * 车辆信息 上报
+     *
+     * @param ro        车辆信息
+     * @param messageId 消息id
+     * @return true成功，false失败
+     */
+    public boolean vehicle(VehicleRO ro, String messageId) throws JAXBException, IOException {
+        return send("WLHY_CL1001", "车辆信息单", toXml(ro), messageId);
+    }
+
 
     /**
      * 上报接口。
@@ -142,7 +162,7 @@ public class NFPTJ {
                 .set("IPCType", ipcType)
                 .set("DocumentName", documentName)
                 .set("EncryptedContent", SmUtil.sm2(null, publicKey).encryptBcd(content, KeyType.PublicKey))
-                .set("MessageReferenceNumber", messageReferenceNumber)
+                .set("MessageReferenceNumber", StrUtil.isBlank(messageReferenceNumber) ? UUID.randomUUID().toString().replaceAll("-", "") : messageReferenceNumber)
                 .set("MessageSendingDateTime", messageSendingDateTime)
                 .set("UserId", userId)
                 .set("Token", token)
