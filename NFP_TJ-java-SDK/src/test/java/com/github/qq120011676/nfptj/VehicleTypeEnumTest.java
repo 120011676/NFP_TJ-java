@@ -4,6 +4,8 @@ import com.github.qq120011676.nfptj.enums.VehicleTypeEnum;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public class VehicleTypeEnumTest {
     public static void main(String[] args) {
@@ -23,7 +25,10 @@ public class VehicleTypeEnumTest {
                 }
                 nameMap.put(n, null);
             }
-
         }
+        System.out.println(Objects.equals("H13", Optional.ofNullable(VehicleTypeEnum.parse("重型封闭式货车")).map(VehicleTypeEnum::getValue).orElse(null)));
+        System.out.println(Objects.equals("H13", Optional.ofNullable(VehicleTypeEnum.parse("重型封闭货车")).map(VehicleTypeEnum::getValue).orElse(null)));
+        System.out.println(Objects.equals("H14", Optional.ofNullable(VehicleTypeEnum.parse("重型罐式货车")).map(VehicleTypeEnum::getValue).orElse(null)));
+        System.out.println(Objects.equals("H14", Optional.ofNullable(VehicleTypeEnum.parse("H14")).map(VehicleTypeEnum::getValue).orElse(null)));
     }
 }

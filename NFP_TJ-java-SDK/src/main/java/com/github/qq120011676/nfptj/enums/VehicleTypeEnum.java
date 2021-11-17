@@ -1,5 +1,7 @@
 package com.github.qq120011676.nfptj.enums;
 
+import java.util.Objects;
+
 /**
  * 营运车辆类型代码
  */
@@ -266,5 +268,21 @@ public enum VehicleTypeEnum {
 
     public String[] getNames() {
         return names;
+    }
+
+    public static VehicleTypeEnum parse(String nameOrValue) {
+        VehicleTypeEnum[] vehicleTypeEnums = values();
+        for (VehicleTypeEnum vehicleTypeEnum : vehicleTypeEnums) {
+            if (Objects.equals(vehicleTypeEnum.getValue(), nameOrValue)) {
+                return vehicleTypeEnum;
+            }
+            String[] names = vehicleTypeEnum.getNames();
+            for (String name : names) {
+                if (Objects.equals(name, nameOrValue)) {
+                    return vehicleTypeEnum;
+                }
+            }
+        }
+        return null;
     }
 }
