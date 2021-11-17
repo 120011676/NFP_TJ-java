@@ -33,7 +33,6 @@ public enum VehiclePlateColorCodeEnum {
         return name;
     }
 
-
     public static VehiclePlateColorCodeEnum parse(String nameOrValue) {
         VehiclePlateColorCodeEnum[] vehiclePlateColorCodeEnums = values();
         for (VehiclePlateColorCodeEnum vehiclePlateColorCodeEnum : vehiclePlateColorCodeEnums) {
