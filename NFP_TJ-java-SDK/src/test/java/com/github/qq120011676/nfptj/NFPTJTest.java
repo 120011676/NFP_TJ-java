@@ -3,7 +3,9 @@
  */
 package com.github.qq120011676.nfptj;
 
+import com.github.qq120011676.nfptj.enums.VehicleEnergyTypeEnum;
 import com.github.qq120011676.nfptj.enums.VehiclePlateColorCodeEnum;
+import com.github.qq120011676.nfptj.enums.VehicleTypeEnum;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 class NFPTJTest {
     String userId = "1158";
@@ -51,8 +54,21 @@ class NFPTJTest {
         VehicleRO.Body body = new VehicleRO.Body();
         ro.getBodys().add(body);
         body.setVehicleNumber("津A12345");
-        body.setVehiclePlateColorCode(VehiclePlateColorCodeEnum.valueOf("绿色").getValue());
+        body.setVehiclePlateColorCode(Objects.requireNonNull(VehiclePlateColorCodeEnum.parse("绿色")).getValue());
+        body.setVehicleType(Objects.requireNonNull(VehicleTypeEnum.parse("重型集装箱车")).getValue());
+        body.setOwner("所有人");
+        body.setUseCharacter("使用性质");
+        body.setVin("车辆识别代号");
+        body.setIssuingOrganizations("发证机关");
+        body.setRegisterDate("20000101");
+        body.setIssueDate("20000101");
+        body.setVehicleEnergyType(Objects.requireNonNull(VehicleEnergyTypeEnum.parse("汽油")).getValue());
+        body.setVehicleTonnage("30.00");
+        body.setGrossMass("30.00");
+        body.setRoadTransportCertificateNumber("道路运输证号");
+        body.setTrailerVehiclePlateNumber("挂车牌照号");
+        body.setRemark("备注");
         NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
-        Assertions.assertTrue(nfptj.vehicle(ro), "测试发送【驾驶员信息】失败");
+        Assertions.assertTrue(nfptj.vehicle(ro), "测试发送【车辆信息】失败");
     }
 }

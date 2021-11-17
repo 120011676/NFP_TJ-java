@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * 车辆能源类型
  */
-public enum VehicleEnergyEnum {
+public enum VehicleEnergyTypeEnum {
     A("A", "汽油"),
     B("B", "柴油"),
     C("C", "电"),//以电能驱动的汽车
@@ -22,7 +22,7 @@ public enum VehicleEnergyEnum {
     private final String value;
     private final String name;
 
-    VehicleEnergyEnum(String value, String name) {
+    VehicleEnergyTypeEnum(String value, String name) {
         this.value = value;
         this.name = name;
     }
@@ -35,11 +35,11 @@ public enum VehicleEnergyEnum {
         return name;
     }
 
-    public static VehicleEnergyEnum parse(String nameOrValue) {
-        VehicleEnergyEnum[] vehicleEnergyEnums = values();
-        for (VehicleEnergyEnum vehicleEnergyEnum : vehicleEnergyEnums) {
-            if (Objects.equals(vehicleEnergyEnum.getValue(), nameOrValue) || Objects.equals(vehicleEnergyEnum.getName(), nameOrValue)) {
-                return vehicleEnergyEnum;
+    public static VehicleEnergyTypeEnum parse(String nameOrValue) {
+        VehicleEnergyTypeEnum[] vehicleEnergyTypeEnums = values();
+        for (VehicleEnergyTypeEnum vehicleEnergyTypeEnum : vehicleEnergyTypeEnums) {
+            if (Objects.equals(vehicleEnergyTypeEnum.getValue(), nameOrValue) || Objects.equals(vehicleEnergyTypeEnum.getName(), nameOrValue)) {
+                return vehicleEnergyTypeEnum;
             }
         }
         return null;
