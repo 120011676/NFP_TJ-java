@@ -167,6 +167,7 @@ public class WaybillRO {
             private String placeOfLoading;//装货地址（必填，本单货物的装货的地点。）an..256
             @XmlElement(name = "CountrySubdivisionCode")
             private String countrySubdivisionCode;//装货地点的国家行政区划代码（必填，参考本文文末代码集。）an..12
+
         }
 
         @Data
