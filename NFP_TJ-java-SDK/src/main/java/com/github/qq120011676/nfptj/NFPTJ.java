@@ -10,6 +10,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+@Slf4j
 public class NFPTJ {
     private final String userId;
     private final String password;
@@ -113,7 +115,7 @@ public class NFPTJ {
     /**
      * 车辆信息 上报
      *
-     * @param ro        车辆信息
+     * @param ro 车辆信息
      * @return true成功，false失败
      */
     public boolean vehicle(VehicleRO ro) throws JAXBException, IOException {
@@ -158,6 +160,7 @@ public class NFPTJ {
      * @return true成功，false失败
      */
     protected boolean send(String ipcType, String documentName, String content, String messageReferenceNumber, String messageSendingDateTime, String userId, String token) {
+        log.trace("发送【天津市网络货运经营运行监测平台】明文内容：{}", content);
         String json = post("/wlhy/send", JSONUtil.createObj()
                 .set("IPCType", ipcType)
                 .set("DocumentName", documentName)
@@ -203,11 +206,16 @@ public class NFPTJ {
     }
 
     protected String post(String uri, String body) {
-        return HttpUtil.createPost(MessageFormat.format("{0}{1}", baseUrl, uri))
+        String url = MessageFormat.format("{0}{1}", baseUrl, uri);
+        log.trace("发送【天津市网络货运经营运行监测平台】url：{}", url);
+        log.trace("发送【天津市网络货运经营运行监测平台】内容：{}", body);
+        String result = HttpUtil.createPost(url)
                 .header(Header.USER_AGENT, USER_AGENT)
                 .header(HTTP_HEADER_AUTHOR, AUTHOR)
                 .body(body)
                 .execute()
                 .body();
+        log.trace("接收【天津市网络货运经营运行监测平台】内容：{}", result);
+        return result;
     }
 }

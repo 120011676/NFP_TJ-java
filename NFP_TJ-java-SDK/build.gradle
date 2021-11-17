@@ -34,10 +34,8 @@ dependencies {
     implementation 'javax.activation:activation:+'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
 
-//    implementation 'javax.xml.bind:jaxb-api:+'
-//    implementation 'javax.xml.activation:activation:+'
-//    implementation 'org.glassfish.jaxb:jaxb-runtime:+'
-
+    implementation 'org.slf4j:slf4j-api:+'
+    testImplementation 'org.slf4j:slf4j-simple:+'
 }
 
 tasks.named('test') {
