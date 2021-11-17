@@ -10,6 +10,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
+import com.github.qq120011676.nfptj.ro.WaybillRO;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.JAXBContext;
@@ -133,6 +134,30 @@ public class NFPTJ {
         return send("WLHY_CL1001", "车辆信息单", toXml(ro), messageId);
     }
 
+    /**
+     * 电子运单 上报
+     *
+     * @param ro 电子运单
+     * @return true成功，false失败
+     * @throws JAXBException
+     * @throws IOException
+     */
+    public boolean waybill(WaybillRO ro) throws JAXBException, IOException {
+        return waybill(ro, null);
+    }
+
+    /**
+     * 电子运单 上报
+     *
+     * @param ro        电子运单
+     * @param messageId 消息id
+     * @return true成功，false失败
+     * @throws JAXBException
+     * @throws IOException
+     */
+    public boolean waybill(WaybillRO ro, String messageId) throws JAXBException, IOException {
+        return send("WLHY_YD1001", "电子运单", toXml(ro), messageId);
+    }
 
     /**
      * 上报接口。

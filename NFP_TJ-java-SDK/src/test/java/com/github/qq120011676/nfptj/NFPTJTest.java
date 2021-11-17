@@ -8,13 +8,17 @@ import com.github.qq120011676.nfptj.enums.VehiclePlateColorCodeEnum;
 import com.github.qq120011676.nfptj.enums.VehicleTypeEnum;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
+import com.github.qq120011676.nfptj.ro.WaybillRO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 class NFPTJTest {
     String userId = "1158";
@@ -70,5 +74,34 @@ class NFPTJTest {
         body.setRemark("备注");
         NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
         Assertions.assertTrue(nfptj.vehicle(ro), "测试发送【车辆信息】失败");
+    }
+
+    @Test
+    void waybillTest() throws JAXBException, IOException {
+        WaybillRO ro = new WaybillRO();
+        ro.setBodys(new ArrayList<>());
+        WaybillRO.Body body = new WaybillRO.Body();
+        ro.getBodys().add(body);
+        body.setOriginalDocumentNumber(UUID.randomUUID().toString().replaceAll("-", ""));
+        body.setShippingNoteNumber(UUID.randomUUID().toString().replaceAll("-", ""));
+        body.setVehicleAmount(2);
+        body.setSerialNumber("0000");
+        body.setTransportTypeCode(Objects.requireNonNull(WaybillRO.Body.TransportTypeCodeEnum.parse("公铁水空联运")).getValue());
+        body.setSendToProDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        body.setCarrier("网络货运经营者名称");
+        body.setUnifiedSocialCreditIdentifier("统一社会信用代码");
+        body.setConsignmentDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        body.setBusinessTypeCode(Objects.requireNonNull(WaybillRO.Body.BusinessTypeCodeEnum.parse("集装箱运输")).getValue());
+        body.setDespatchActualDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        body.setGoodsReceiptDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        body.setConsignorInfos(new ArrayList<>());
+        WaybillRO.Body.ConsignorInfoRO consignorInfoRO = new WaybillRO.Body.ConsignorInfoRO();
+        body.getConsignorInfos().add(consignorInfoRO);
+        consignorInfoRO.setConsignor("托运人名称");
+        consignorInfoRO.setConsignorID("托运人统一社会信用代码或个人证件号");
+        consignorInfoRO.setPlaceOfLoading("装货地址");
+        consignorInfoRO.setCountrySubdivisionCode("装货地点的国家行政区划代码");
+        NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
+        Assertions.assertTrue(nfptj.waybill(ro), "测试发送【电子运单】失败");
     }
 }
