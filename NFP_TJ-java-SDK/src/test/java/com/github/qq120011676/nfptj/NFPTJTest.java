@@ -3,7 +3,7 @@
  */
 package com.github.qq120011676.nfptj;
 
-import com.github.qq120011676.nfptj.enums.VehiclePlateColorCodeENum;
+import com.github.qq120011676.nfptj.enums.VehiclePlateColorCodeEnum;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
 import org.junit.jupiter.api.Assertions;
@@ -51,7 +51,7 @@ class NFPTJTest {
         VehicleRO.Body body = new VehicleRO.Body();
         ro.getBodys().add(body);
         body.setVehicleNumber("津A12345");
-        body.setVehiclePlateColorCode(VehiclePlateColorCodeENum.valueOf("绿色").getValue());
+        body.setVehiclePlateColorCode(VehiclePlateColorCodeEnum.valueOf("绿色").getValue());
         NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
         Assertions.assertTrue(nfptj.vehicle(ro), "测试发送【驾驶员信息】失败");
     }

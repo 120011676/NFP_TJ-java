@@ -1,9 +1,11 @@
 package com.github.qq120011676.nfptj.enums;
 
+import java.util.Objects;
+
 /**
  * 车牌颜色代码
  */
-public enum VehiclePlateColorCodeENum {
+public enum VehiclePlateColorCodeEnum {
     BLUE("1", "蓝色"),
     YELLOW("2", "黄色"),
     BLACK("3", "黑色"),
@@ -18,7 +20,7 @@ public enum VehiclePlateColorCodeENum {
     private final String value;
     private final String name;
 
-    VehiclePlateColorCodeENum(String value, String name) {
+    VehiclePlateColorCodeEnum(String value, String name) {
         this.value = value;
         this.name = name;
     }
@@ -29,5 +31,16 @@ public enum VehiclePlateColorCodeENum {
 
     public String getName() {
         return name;
+    }
+
+
+    public static VehiclePlateColorCodeEnum parse(String nameOrValue) {
+        VehiclePlateColorCodeEnum[] vehiclePlateColorCodeEnums = values();
+        for (VehiclePlateColorCodeEnum vehiclePlateColorCodeEnum : vehiclePlateColorCodeEnums) {
+            if (Objects.equals(vehiclePlateColorCodeEnum.getValue(), nameOrValue) || Objects.equals(vehiclePlateColorCodeEnum.getName(), nameOrValue)) {
+                return vehiclePlateColorCodeEnum;
+            }
+        }
+        return null;
     }
 }
