@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import java.util.*;
 
 public class CountrySubdivisionCodeStatic {
-    private static Map<String, String> CITY_CODE_MAP = null;
+    private static final Map<String, String> CITY_CODE_MAP;
 
     static {
         List<String> lines = FileUtil.readUtf8Lines(Objects.requireNonNull(CountrySubdivisionCodeStatic.class.getResource("/city_code.txt")));
