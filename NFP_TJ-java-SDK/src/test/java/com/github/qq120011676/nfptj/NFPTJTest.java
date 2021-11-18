@@ -5,10 +5,10 @@ package com.github.qq120011676.nfptj;
 
 import com.github.qq120011676.nfptj.enums.VehicleEnergyTypeEnum;
 import com.github.qq120011676.nfptj.enums.VehiclePlateColorCodeEnum;
-import com.github.qq120011676.nfptj.enums.VehicleTypeEnum;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
 import com.github.qq120011676.nfptj.ro.WaybillRO;
+import com.github.qq120011676.nfptj.statics.VehicleTypeStatic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -59,7 +59,7 @@ class NFPTJTest {
         ro.getBodys().add(body);
         body.setVehicleNumber("津A12345");
         body.setVehiclePlateColorCode(Objects.requireNonNull(VehiclePlateColorCodeEnum.parse("绿色")).getValue());
-        body.setVehicleType(Objects.requireNonNull(VehicleTypeEnum.parse("重型集装箱车")).getValue());
+        body.setVehicleType(Objects.requireNonNull(VehicleTypeStatic.parseName("重型集装箱车")).getCode());
         body.setOwner("所有人");
         body.setUseCharacter("使用性质");
         body.setVin("车辆识别代号");
