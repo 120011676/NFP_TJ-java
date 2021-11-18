@@ -8,6 +8,7 @@ import cn.hutool.http.Header;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.github.qq120011676.nfptj.ro.CapitalRO;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
 import com.github.qq120011676.nfptj.ro.WaybillRO;
@@ -157,6 +158,32 @@ public class NFPTJ {
      */
     public boolean waybill(WaybillRO ro, String messageId) throws JAXBException, IOException {
         return send("WLHY_YD1001", "电子运单", toXml(ro), messageId);
+    }
+
+
+    /**
+     * 资金流水单 上报
+     *
+     * @param ro 资金流水单
+     * @return true成功，false失败
+     * @throws JAXBException
+     * @throws IOException
+     */
+    public boolean capital(CapitalRO ro) throws JAXBException, IOException {
+        return capital(ro, null);
+    }
+
+    /**
+     * 资金流水单 上报
+     *
+     * @param ro        资金流水单
+     * @param messageId 消息id
+     * @return true成功，false失败
+     * @throws JAXBException
+     * @throws IOException
+     */
+    public boolean capital(CapitalRO ro, String messageId) throws JAXBException, IOException {
+        return send("WLHY_JZ1001", "资金流水单", toXml(ro), messageId);
     }
 
     /**
