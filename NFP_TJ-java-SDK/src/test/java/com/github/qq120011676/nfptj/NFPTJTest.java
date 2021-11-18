@@ -11,10 +11,7 @@ import com.github.qq120011676.nfptj.ro.CapitalRO;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
 import com.github.qq120011676.nfptj.ro.WaybillRO;
-import com.github.qq120011676.nfptj.statics.CargoTypeClassificationCodeStatic;
-import com.github.qq120011676.nfptj.statics.CountrySubdivisionCodeStatic;
-import com.github.qq120011676.nfptj.statics.PaymentMeansCodeStatic;
-import com.github.qq120011676.nfptj.statics.VehicleTypeStatic;
+import com.github.qq120011676.nfptj.statics.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -172,6 +169,11 @@ class NFPTJTest {
         financialRO.setPaymentMeansCode(Objects.requireNonNull(PaymentMeansCodeStatic.parseName("微信支付")).getCode());
         financialRO.setRecipient("收款方名称");
         financialRO.setReceiptAccount("收款帐户信息");
+        financialRO.setBankCode(Objects.requireNonNull(BankCodeStatic.parseName("江苏苏宁银行")).getCode());
+        financialRO.setSequenceCode(UUID.randomUUID().toString());
+        financialRO.setMonetaryAmount("5000.001");
+        financialRO.setDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        body.setRemark("备注");
         NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
         Assertions.assertTrue(nfptj.capital(ro), "测试发送【资金流水单】失败");
 

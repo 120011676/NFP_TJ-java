@@ -69,7 +69,7 @@ public class CapitalRO {
             @XmlElement(name = "MonetaryAmount")
             private String monetaryAmount;//实际支付金额（必填，资金流水金额 ，货币单位为人民币 ，保留 3位小数， 如整数的话， 以.000 填充。）n..18,3
             @XmlElement(name = "DateTime")
-            private String dateTime;//日期时间（资金流水实际发生时 间。 YYYYMMDDhhmmss）n14
+            private String dateTime;//日期时间（资金流水实际发生时间。 YYYYMMDDhhmmss）n14
         }
 
     }
