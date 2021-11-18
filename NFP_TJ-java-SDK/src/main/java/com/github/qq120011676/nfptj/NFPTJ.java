@@ -41,6 +41,7 @@ public class NFPTJ {
     private static final String USER_AGENT = "NFP_TJ-java-SDK";
     private static final String AUTHOR = "Say.li <120011676@qq.com>";
     private static final String HTTP_HEADER_AUTHOR = "Author";
+    @Getter
     private volatile String token;
 
     public NFPTJ(String userId, String password, String publicKey) {
