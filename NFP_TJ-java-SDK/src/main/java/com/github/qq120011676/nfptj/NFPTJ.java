@@ -20,6 +20,7 @@ import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.MessageFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -30,16 +31,21 @@ public class NFPTJ {
     private final String password;
     private final String baseUrl;
     private final String publicKey;
+    private final Duration timeout;
     private static final String USER_AGENT = "NFP_TJ-java-SDK";
     private static final String AUTHOR = "Say.li <120011676@qq.com>";
     private static final String HTTP_HEADER_AUTHOR = "Author";
     private volatile String token;
 
     public NFPTJ(String userId, String password, String publicKey) {
-        this(userId, password, publicKey, null);
+        this(userId, password, publicKey, null, null);
     }
 
     public NFPTJ(String userId, String password, String publicKey, String baseUrl) {
+        this(userId, password, publicKey, baseUrl, null);
+    }
+
+    public NFPTJ(String userId, String password, String publicKey, String baseUrl, Duration timeout) {
         this.userId = userId;
         this.password = password;
         this.publicKey = publicKey;
@@ -47,6 +53,10 @@ public class NFPTJ {
             baseUrl = "http://218.67.246.252:7999";
         }
         this.baseUrl = baseUrl;
+        if (timeout == null) {
+            timeout = Duration.ofSeconds(10);
+        }
+        this.timeout = timeout;
         token();
     }
 
@@ -70,6 +80,9 @@ public class NFPTJ {
         return token;
     }
 
+    public Duration getTimeout() {
+        return timeout;
+    }
 
     /**
      * 申请令牌接口
@@ -261,7 +274,7 @@ public class NFPTJ {
         String url = MessageFormat.format("{0}{1}", baseUrl, uri);
         log.trace("发送【天津市网络货运经营运行监测平台】url：{}", url);
         log.trace("发送【天津市网络货运经营运行监测平台】内容：{}", body);
-        String result = HttpUtil.createPost(url)
+        String result = HttpUtil.createPost(url).timeout((int) timeout.toMillis())
                 .header(Header.USER_AGENT, USER_AGENT)
                 .header(HTTP_HEADER_AUTHOR, AUTHOR)
                 .body(body)
