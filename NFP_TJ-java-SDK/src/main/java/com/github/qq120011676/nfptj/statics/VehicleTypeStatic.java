@@ -56,16 +56,16 @@ public class VehicleTypeStatic {
 
     public static class Data {
 
-        private final String value;
+        private final String code;
         private final String[] names;
 
-        public Data(String value, String... names) {
-            this.value = value;
+        public Data(String code, String... names) {
+            this.code = code;
             this.names = names;
         }
 
-        public String getValue() {
-            return value;
+        public String getCode() {
+            return code;
         }
 
         public String[] getNames() {
