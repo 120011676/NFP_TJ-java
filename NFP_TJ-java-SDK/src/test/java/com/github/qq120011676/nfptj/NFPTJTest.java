@@ -7,11 +7,13 @@ import com.github.qq120011676.nfptj.enums.BusinessTypeCodeEnum;
 import com.github.qq120011676.nfptj.enums.TransportTypeCodeEnum;
 import com.github.qq120011676.nfptj.enums.VehicleEnergyTypeEnum;
 import com.github.qq120011676.nfptj.enums.VehiclePlateColorCodeEnum;
+import com.github.qq120011676.nfptj.ro.CapitalRO;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
 import com.github.qq120011676.nfptj.ro.WaybillRO;
 import com.github.qq120011676.nfptj.statics.CargoTypeClassificationCodeStatic;
 import com.github.qq120011676.nfptj.statics.CountrySubdivisionCodeStatic;
+import com.github.qq120011676.nfptj.statics.PaymentMeansCodeStatic;
 import com.github.qq120011676.nfptj.statics.VehicleTypeStatic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -145,5 +147,31 @@ class NFPTJTest {
         body.setRemark("备注");
         NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
         Assertions.assertTrue(nfptj.waybill(ro), "测试发送【电子运单】失败");
+    }
+
+    @Test
+    void capitalTest() throws JAXBException, IOException {
+        CapitalRO ro = new CapitalRO();
+        ro.setBodys(new ArrayList<>());
+        CapitalRO.Body body = new CapitalRO.Body();
+        ro.getBodys().add(body);
+        body.setDocumentNumber(UUID.randomUUID().toString().replaceAll("-", ""));
+        body.setCarrier("实际承运人名称");
+        body.setActualCarrierID("012345678901234567");
+        body.setVehicleNumber("车辆牌照号");
+        body.setVehiclePlateColorCode(Objects.requireNonNull(VehiclePlateColorCodeEnum.parse("农绿色")).getValue());
+        body.setShippingNoteList(new ArrayList<>());
+        CapitalRO.Body.ShippingNoteRO shippingNoteRO = new CapitalRO.Body.ShippingNoteRO();
+        body.getShippingNoteList().add(shippingNoteRO);
+        shippingNoteRO.setShippingNoteNumber("134");
+        shippingNoteRO.setSerialNumber("0123");
+        shippingNoteRO.setTotalMonetaryAmount("3000.001");
+        body.setFinanciallist(new ArrayList<>());
+        CapitalRO.Body.FinancialRO financialRO = new CapitalRO.Body.FinancialRO();
+        body.getFinanciallist().add(financialRO);
+        financialRO.setPaymentMeansCode(Objects.requireNonNull(PaymentMeansCodeStatic.parseName("微信支付")).getCode());
+        NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
+        Assertions.assertTrue(nfptj.capital(ro), "测试发送【资金流水单】失败");
+
     }
 }

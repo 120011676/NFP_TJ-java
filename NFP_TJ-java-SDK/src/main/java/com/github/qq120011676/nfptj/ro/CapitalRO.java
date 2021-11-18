@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -20,11 +22,11 @@ public class CapitalRO {
 
     @Data
     @XmlAccessorType(XmlAccessType.FIELD)
-    public class Body {
+    public static class Body {
         @XmlElement(name = "DocumentNumber")
         private String documentNumber;//单证号（必填， 本资金流水单 号。）an..35
         @XmlElement(name = "SendToProDateTime")
-        private String sendToProDateTime;//资金流水单上传时间（必填，本资金流水单 上传到省级监测系统 的时间。）an..14
+        private String sendToProDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));//资金流水单上传时间（必填，本资金流水单 上传到省级监测系统的时间。）an..14
         @XmlElement(name = "Carrier")
         private String carrier;//实际承运人名称（必填。）an..512
         @XmlElement(name = "ActualCarrierID")
@@ -42,7 +44,7 @@ public class CapitalRO {
 
         @Data
         @XmlAccessorType(XmlAccessType.FIELD)
-        public class ShippingNoteRO {
+        public static class ShippingNoteRO {
             @XmlElement(name = "ShippingNoteNumber")
             private String shippingNoteNumber;//托运单号（必填。）an..20
             @XmlElement(name = "SerialNumber")
@@ -53,7 +55,7 @@ public class CapitalRO {
 
         @Data
         @XmlAccessorType(XmlAccessType.FIELD)
-        public class FinancialRO {
+        public static class FinancialRO {
             @XmlElement(name = "PaymentMeansCode")
             private String paymentMeansCode;//付款方式代码（必填,参考本文文末代 码集。）an..3
             @XmlElement(name = "Recipient")
