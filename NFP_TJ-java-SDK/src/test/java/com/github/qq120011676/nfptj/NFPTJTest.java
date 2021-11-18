@@ -170,6 +170,8 @@ class NFPTJTest {
         CapitalRO.Body.FinancialRO financialRO = new CapitalRO.Body.FinancialRO();
         body.getFinanciallist().add(financialRO);
         financialRO.setPaymentMeansCode(Objects.requireNonNull(PaymentMeansCodeStatic.parseName("微信支付")).getCode());
+        financialRO.setRecipient("收款方名称");
+        financialRO.setReceiptAccount("收款帐户信息");
         NFPTJ nfptj = new NFPTJ(userId, password, publicKey, baseUrl);
         Assertions.assertTrue(nfptj.capital(ro), "测试发送【资金流水单】失败");
 
