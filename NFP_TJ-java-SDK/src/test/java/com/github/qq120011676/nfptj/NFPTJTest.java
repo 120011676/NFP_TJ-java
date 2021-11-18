@@ -3,6 +3,8 @@
  */
 package com.github.qq120011676.nfptj;
 
+import com.github.qq120011676.nfptj.enums.BusinessTypeCodeEnum;
+import com.github.qq120011676.nfptj.enums.TransportTypeCodeEnum;
 import com.github.qq120011676.nfptj.enums.VehicleEnergyTypeEnum;
 import com.github.qq120011676.nfptj.enums.VehiclePlateColorCodeEnum;
 import com.github.qq120011676.nfptj.ro.DriverRO;
@@ -88,13 +90,13 @@ class NFPTJTest {
         body.setShippingNoteNumber("123");
         body.setVehicleAmount(2);
         body.setSerialNumber("0000");
-        body.setTransportTypeCode(Objects.requireNonNull(WaybillRO.Body.TransportTypeCodeEnum.parse("公铁水空联运")).getValue());
+        body.setTransportTypeCode(Objects.requireNonNull(TransportTypeCodeEnum.parse("公铁水空联运")).getValue());
         body.setSendToProDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
         body.setCarrier("网络货运经营者名称");
         body.setUnifiedSocialCreditIdentifier("012345678901234567");
         body.setPermitNumber("012345678901234567");
         body.setConsignmentDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
-        body.setBusinessTypeCode(Objects.requireNonNull(WaybillRO.Body.BusinessTypeCodeEnum.parse("集装箱运输")).getValue());
+        body.setBusinessTypeCode(Objects.requireNonNull(BusinessTypeCodeEnum.parse("集装箱运输")).getValue());
         body.setDespatchActualDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
         body.setGoodsReceiptDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
         body.setConsignorInfo(new WaybillRO.Body.ConsignorInfoRO());

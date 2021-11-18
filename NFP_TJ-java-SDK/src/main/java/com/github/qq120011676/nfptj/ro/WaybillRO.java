@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 
 /*
  * 电子运单
@@ -70,93 +69,6 @@ public class WaybillRO {
         private InsuranceInformationRO insuranceInformation;//保险信息(必填。）
         @XmlElement(name = "Remark")
         private String remark;//备注（选填。）an..256
-
-        /**
-         * 运输组织类型代码
-         */
-        public enum TransportTypeCodeEnum {
-            HIGHWAY(1, "公路运输"),
-            HIGHWAY_RAILWAY(2, "公铁联运"),
-            HIGHWAY_WATERWAY(3, "公水联运"),
-            HIGHWAY_AVIATION(4, "公空联运"),
-            HIGHWAY_RAILWAY_WATERWAY(5, "公铁水联运"),
-            HIGHWAY_RAILWAY_AVIATION(6, "公铁空联运"),
-            HIGHWAY_WATERWAY_AVIATION(7, "公水空联运"),
-            HIGHWAY_RAILWAY_WATERWAY_AVIATION(8, "公铁水空联运"),
-            ;
-            private final int value;
-            private final String name;
-
-            TransportTypeCodeEnum(int value, String name) {
-                this.value = value;
-                this.name = name;
-            }
-
-            public int getValue() {
-                return value;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public static TransportTypeCodeEnum parse(String nameOrValue) {
-                TransportTypeCodeEnum[] enums = values();
-                for (TransportTypeCodeEnum en : enums) {
-                    if (Objects.equals(en.getValue() + "", nameOrValue) || Objects.equals(en.getName(), nameOrValue)) {
-                        return en;
-                    }
-                }
-                return null;
-            }
-
-            public static TransportTypeCodeEnum parse(int value) {
-                TransportTypeCodeEnum[] enums = values();
-                for (TransportTypeCodeEnum en : enums) {
-                    if (Objects.equals(en.getValue(), value)) {
-                        return en;
-                    }
-                }
-                return null;
-            }
-        }
-
-        /**
-         * 业务类型代码
-         */
-        public enum BusinessTypeCodeEnum {
-            TRUNK_GENERAL_CARGO_TRANSPORTATION("1002996", "干线普货运输"),//干线普货运输服务
-            URBAN_DISTRIBUTION("1003997", "城市配送"),//在城市范围内进行配送
-            RURAL_DISTRIBUTION("1003998", "农村配送"),//若发货方或收货方在农村地区即为农村物流
-            CONTAINER_TRANSPORT("1002998", "集装箱运输"),//集装箱运输
-            OTHER("1003999", "其他"),//其他
-            ;
-            private final String value;
-            private final String name;
-
-            BusinessTypeCodeEnum(String value, String name) {
-                this.value = value;
-                this.name = name;
-            }
-
-            public String getValue() {
-                return value;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public static BusinessTypeCodeEnum parse(String nameOrValue) {
-                BusinessTypeCodeEnum[] enums = values();
-                for (BusinessTypeCodeEnum en : enums) {
-                    if (Objects.equals(en.getValue(), nameOrValue) || Objects.equals(en.getName(), nameOrValue)) {
-                        return en;
-                    }
-                }
-                return null;
-            }
-        }
 
         @Data
         @XmlAccessorType(XmlAccessType.FIELD)
