@@ -12,6 +12,7 @@ import com.github.qq120011676.nfptj.ro.CapitalRO;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
 import com.github.qq120011676.nfptj.ro.WaybillRO;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.JAXBContext;
@@ -27,10 +28,15 @@ import java.util.UUID;
 
 @Slf4j
 public class NFPTJ {
+    @Getter
     private final String userId;
+    @Getter
     private final String password;
+    @Getter
     private final String baseUrl;
+    @Getter
     private final String publicKey;
+    @Getter
     private final Duration timeout;
     private static final String USER_AGENT = "NFP_TJ-java-SDK";
     private static final String AUTHOR = "Say.li <120011676@qq.com>";
@@ -58,30 +64,6 @@ public class NFPTJ {
         }
         this.timeout = timeout;
         token();
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getBaseUrl() {
-        return baseUrl;
-    }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public Duration getTimeout() {
-        return timeout;
     }
 
     /**
@@ -209,7 +191,7 @@ public class NFPTJ {
      * @return true成功，false失败
      */
     protected boolean send(String ipcType, String documentName, String content, String messageReferenceNumber) {
-        return send(ipcType, documentName, content, messageReferenceNumber, DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), userId, getToken());
+        return send(ipcType, documentName, content, messageReferenceNumber, DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), userId, token());
     }
 
     /**
