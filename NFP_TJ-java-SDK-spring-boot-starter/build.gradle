@@ -1,0 +1,3 @@
+dependencies {
+    api project(":NFP_TJ-java-SDK-spring-boot-autoconfigure")
+}
