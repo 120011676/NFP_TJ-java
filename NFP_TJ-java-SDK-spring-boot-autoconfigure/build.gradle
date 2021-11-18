@@ -1,0 +1,16 @@
+dependencies {
+    api project(":NFP_TJ-java-SDK")
+    compileOnly "org.springframework.boot:spring-boot-starter:+"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:+"
+
+    compileOnly 'org.projectlombok:lombok:+'
+    annotationProcessor 'org.projectlombok:lombok:+'
+    testImplementation 'org.testng:testng:+'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:+'
+}
+
+test {
+    useJUnitPlatform()
+}

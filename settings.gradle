@@ -9,3 +9,5 @@
 
 rootProject.name = 'NFP_TJ-java'
 include('NFP_TJ-java-SDK')
+include 'NFP_TJ-java-SDK-spring-boot-autoconfigure'
+
