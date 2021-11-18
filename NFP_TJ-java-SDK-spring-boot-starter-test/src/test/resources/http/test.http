@@ -1,0 +1,5 @@
+### config
+GET {{baseUrl}}/test/config
+
+### token
+GET {{baseUrl}}/test/token
