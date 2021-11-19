@@ -19,7 +19,7 @@ public class NFPTJAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(NFPTJ.class)
-    public NFPTJ userCenter() {
+    public NFPTJ nfptj() {
         return new NFPTJ(nfptjProperties.getUserId(), nfptjProperties.getPassword(), nfptjProperties.getPublicKey(), nfptjProperties.getBaseUrl(), nfptjProperties.getTimeout());
     }
 
