@@ -10,8 +10,6 @@ repositories {
 
 dependencies {
     api project(":NFP_TJ-java-SDK-spring-boot-starter")
-    api project(":NFP_TJ-java-SDK-spring-boot-autoconfigure")
-    api project(":NFP_TJ-java-SDK")
     compileOnly 'org.projectlombok:lombok:+'
     annotationProcessor 'org.projectlombok:lombok:+'
     implementation 'org.springframework.boot:spring-boot-starter-web'
