@@ -8,6 +8,7 @@ import cn.hutool.http.Header;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.github.qq120011676.nfptj.config.NFPTJConfig;
 import com.github.qq120011676.nfptj.ro.CapitalRO;
 import com.github.qq120011676.nfptj.ro.DriverRO;
 import com.github.qq120011676.nfptj.ro.VehicleRO;
@@ -21,7 +22,6 @@ import javax.xml.bind.Marshaller;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.MessageFormat;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -29,41 +29,15 @@ import java.util.UUID;
 @Slf4j
 public class NFPTJ {
     @Getter
-    private final String userId;
-    @Getter
-    private final String password;
-    @Getter
-    private final String baseUrl;
-    @Getter
-    private final String publicKey;
-    @Getter
-    private final Duration timeout;
+    private NFPTJConfig nfptjConfig;
     private static final String USER_AGENT = "NFP_TJ-java-SDK";
     private static final String AUTHOR = "Say.li <120011676@qq.com>";
     private static final String HTTP_HEADER_AUTHOR = "Author";
     @Getter
     private volatile String token;
 
-    public NFPTJ(String userId, String password, String publicKey) {
-        this(userId, password, publicKey, null, null);
-    }
-
-    public NFPTJ(String userId, String password, String publicKey, String baseUrl) {
-        this(userId, password, publicKey, baseUrl, null);
-    }
-
-    public NFPTJ(String userId, String password, String publicKey, String baseUrl, Duration timeout) {
-        this.userId = userId;
-        this.password = password;
-        this.publicKey = publicKey;
-        if (StrUtil.isBlank(baseUrl)) {
-            baseUrl = "http://218.67.246.252:7999";
-        }
-        this.baseUrl = baseUrl;
-        if (timeout == null) {
-            timeout = Duration.ofSeconds(10);
-        }
-        this.timeout = timeout;
+    public NFPTJ(NFPTJConfig nfptjConfig) {
+        this.nfptjConfig = nfptjConfig;
         token();
     }
 
@@ -73,7 +47,7 @@ public class NFPTJ {
      * @return 令牌
      */
     public String applyToken() {
-        return applyToken(userId, password);
+        return applyToken(nfptjConfig.getUserId(), nfptjConfig.getPassword());
     }
 
     /**
@@ -192,7 +166,7 @@ public class NFPTJ {
      * @return true成功，false失败
      */
     protected boolean send(String ipcType, String documentName, String content, String messageReferenceNumber) {
-        return send(ipcType, documentName, content, messageReferenceNumber, DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), userId, token());
+        return send(ipcType, documentName, content, messageReferenceNumber, DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), nfptjConfig.getUserId(), token());
     }
 
     /**
@@ -212,7 +186,7 @@ public class NFPTJ {
         String json = post("/wlhy/send", JSONUtil.createObj()
                 .set("IPCType", ipcType)
                 .set("DocumentName", documentName)
-                .set("EncryptedContent", SmUtil.sm2(null, publicKey).encryptBcd(content, KeyType.PublicKey))
+                .set("EncryptedContent", SmUtil.sm2(null, nfptjConfig.getPublicKey()).encryptBcd(content, KeyType.PublicKey))
                 .set("MessageReferenceNumber", StrUtil.isBlank(messageReferenceNumber) ? UUID.randomUUID().toString().replaceAll("-", "") : messageReferenceNumber)
                 .set("MessageSendingDateTime", messageSendingDateTime)
                 .set("UserId", userId)
@@ -254,10 +228,10 @@ public class NFPTJ {
     }
 
     protected String post(String uri, String body) {
-        String url = MessageFormat.format("{0}{1}", baseUrl, uri);
+        String url = MessageFormat.format("{0}{1}", nfptjConfig.getBaseUrl(), uri);
         log.trace("发送【天津市网络货运经营运行监测平台】url：{}", url);
         log.trace("发送【天津市网络货运经营运行监测平台】内容：{}", body);
-        String result = HttpUtil.createPost(url).timeout((int) timeout.toMillis())
+        String result = HttpUtil.createPost(url).timeout((int) nfptjConfig.getTimeout().toMillis())
                 .header(Header.USER_AGENT, USER_AGENT)
                 .header(HTTP_HEADER_AUTHOR, AUTHOR)
                 .body(body)
