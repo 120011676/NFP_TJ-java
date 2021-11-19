@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.qq120011676.nfptj.autoconfigure.NFPTJAutoConfiguration
