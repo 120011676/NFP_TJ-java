@@ -29,7 +29,7 @@ import java.util.UUID;
 @Slf4j
 public class NFPTJ {
     @Getter
-    private NFPTJConfig nfptjConfig;
+    private final NFPTJConfig nfptjConfig;
     private static final String USER_AGENT = "NFP_TJ-java-SDK";
     private static final String AUTHOR = "Say.li <120011676@qq.com>";
     private static final String HTTP_HEADER_AUTHOR = "Author";
@@ -127,6 +127,18 @@ public class NFPTJ {
      * @throws IOException
      */
     public boolean waybill(WaybillRO ro, String messageId) throws JAXBException, IOException {
+        for (WaybillRO.Body body : ro.getBodys()) {
+            if (StrUtil.isBlank(body.getCarrier())) {
+                body.setCarrier(nfptjConfig.getCarrier());
+            }
+            if (StrUtil.isBlank(body.getUnifiedSocialCreditIdentifier())) {
+                body.setCarrier(nfptjConfig.getUnifiedSocialCreditIdentifier());
+            }
+            if (StrUtil.isBlank(body.getPermitNumber())) {
+                body.setCarrier(nfptjConfig.getPermitNumber());
+            }
+        }
+
         return send("WLHY_YD1001", "电子运单", toXml(ro), messageId);
     }
 
