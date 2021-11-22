@@ -54,13 +54,13 @@ public class WaybillRO {
         @XmlElement(name = "ConsigneeInfo")
         private ConsigneeInfoRO consigneeInfo;//收货方信息
         @XmlElement(name = "TotalMonetaryAmount")
-        private String totalMonetaryAmount;//运费金额（必填，托运人与网络货运经营 者签订运输合同确定的运费金 额，货币单位为人民币(元) ，保留 3 位小数，如整数的话 ，以.000 填充。如是一笔业务 分几辆车运，需将托运人针对 这笔业务付给网络货运经营者 的运输费用分摊到每辆车上。）n..18,3
+        private String totalMonetaryAmount;//运费金额（必填，托运人与网络货运经营者签订运输合同确定的运费金额，货币单位为人民币(元) ，保留 3 位小数，如整数的话 ，以.000 填充。如是一笔业务 分几辆车运，需将托运人针对 这笔业务付给网络货运经营者 的运输费用分摊到每辆车上。）n..18,3
         @XmlElement(name = "TransportationCost")
-        private String transportationCost;//运输费用（必填。油卡路桥费用等(运输过 程中非人力成本)，货币单位为 人民币(元)，保留3位小数， 如整数的话，以.000填充。）n..18,3
+        private String transportationCost;//运输费用（必填。油卡路桥费用等(运输过程中非人力成本)，货币单位为 人民币(元)，保留3位小数， 如整数的话，以.000填充。）n..18,3
         @XmlElement(name = "TransportationDistance")
         private Integer transportationDistance;//运输里程（必填。运输的总里程数，单位为 公里。）n..18
         @XmlElement(name = "FinishDateTime")
-        private String finishDateTime;//运单完结时间（必填，网络货运经营者在收 货人确认收货后，全部完成该 笔运单的时间YYYYMMDDhhmmss。）n14
+        private String finishDateTime;//运单完结时间（必填，网络货运经营者在收货人确认收货后，全部完成该 笔运单的时间YYYYMMDDhhmmss。）n14
         @XmlElement(name = "VehicleInfo")
         private VehicleInfoRO vehicleInfo;//车辆信息
         @XmlElement(name = "ActualCarrierInfo")

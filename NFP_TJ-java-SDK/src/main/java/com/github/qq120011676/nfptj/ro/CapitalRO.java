@@ -24,7 +24,7 @@ public class CapitalRO {
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Body {
         @XmlElement(name = "DocumentNumber")
-        private String documentNumber;//单证号（必填， 本资金流水单 号。）an..35
+        private String documentNumber;//单证号（必填，本资金流水单号。）an..35
         @XmlElement(name = "SendToProDateTime")
         private String sendToProDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));//资金流水单上传时间（必填，本资金流水单 上传到省级监测系统的时间。）an..14
         @XmlElement(name = "Carrier")
