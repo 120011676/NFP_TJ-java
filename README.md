@@ -61,3 +61,21 @@ nfp:
     unified-social-credit-identifier: 统一社会信用代码，(运单同步需要，配置后运单可不传自动设置)
     permit-number: 道路运输经营许可证编号（网络货运经营者的道路运输经营许可证编号。）(运单同步需要，配置后运单可不传自动设置)
 ```
+
+java
+```java
+@Resource
+private NFPTJ nfptj;
+
+// 电子运单
+nfptj.waybill(ro);
+
+// 驾驶员
+nfptj.driver(ro);
+
+// 车辆
+nfptj.vehicle(ro);
+
+// 资金
+nfptj.capital(ro);
+```
