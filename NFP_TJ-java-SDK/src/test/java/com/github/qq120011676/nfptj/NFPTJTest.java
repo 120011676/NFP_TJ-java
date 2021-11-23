@@ -3,6 +3,8 @@
  */
 package com.github.qq120011676.nfptj;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.qq120011676.nfptj.config.NFPTJConfig;
 import com.github.qq120011676.nfptj.enums.BusinessTypeCodeEnum;
 import com.github.qq120011676.nfptj.enums.TransportTypeCodeEnum;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -28,10 +31,29 @@ class NFPTJTest {
     private final NFPTJ nfptj;
 
     public NFPTJTest() {
-        String userId = "1158";
-        String password = "bwzppo7yj4";
-        String publicKey = "3059301306072a8648ce3d020106082a811ccf5501822d03420004f228e9d80fe12e628d9e8106d9a6c236eaa63d00ae47888bc3217ceb7002953cd458eccbdc6f75aacb9c21e84689b6b0b9b2d79b9c96efeba5dca2e9998873ce";
+        String userId = "";
+        String password = "";
+        String publicKey = "";
         String baseUrl = "http://218.67.246.252:6999";
+
+        List<String> lines = FileUtil.readUtf8Lines(Objects.requireNonNull(CountrySubdivisionCodeStatic.class.getResource("/nfp_tj_config.txt")));
+        for (String line : lines) {
+            if (StrUtil.isBlank(line)) {
+                continue;
+            }
+            String[] nv = line.split("=");
+            switch (nv[0]) {
+                case "userId":
+                    userId = nv[1];
+                    break;
+                case "password":
+                    password = nv[1];
+                    break;
+                case "publicKey":
+                    publicKey = nv[1];
+                    break;
+            }
+        }
         NFPTJConfig nfptjConfig = new NFPTJConfig();
         nfptjConfig.setUserId(userId);
         nfptjConfig.setPassword(password);
