@@ -4,7 +4,7 @@
 
 暂未发现有问题，在等等上传maven仓库
 
-NFP_TJ-java-SD 普通SDK
+NFP_TJ-java-SDK 普通SDK
 
 [NFP_TJ-java-SDK-V1.2.1-1.0.0.jar](https://github.com/120011676/NFP_TJ-java/releases#:~:text=NFP_TJ%2Djava%2DSDK%2DV1.2.1%2D1.0.0.jar)
 
