@@ -6,6 +6,12 @@
 
 NFP_TJ-java-SD 普通SDK
 
+[NFP_TJ-java-SDK-V1.2.1-1.0.0.jar](https://github.com/120011676/NFP_TJ-java/releases#:~:text=NFP_TJ%2Djava%2DSDK%2DV1.2.1%2D1.0.0.jar)
+
+[NFP_TJ-java-SDK-spring-boot-autoconfigure-V1.2.1-1.0.0.jar](https://github.com/120011676/NFP_TJ-java/releases#:~:text=NFP_TJ%2Djava%2DSDK%2Dspring%2Dboot%2Dautoconfigure%2DV1.2.1%2D1.0.0.jar)
+
+[NFP_TJ-java-SDK-spring-boot-starter-V1.2.1-1.0.0.jar](https://github.com/120011676/NFP_TJ-java/releases#:~:text=NFP_TJ%2Djava%2DSDK%2Dspring%2Dboot%2Dstarter%2DV1.2.1%2D1.0.0.jar)
+
 springboot 使用方式
 maven
 
