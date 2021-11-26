@@ -132,13 +132,12 @@ public class NFPTJ {
                 body.setCarrier(nfptjConfig.getCarrier());
             }
             if (StrUtil.isBlank(body.getUnifiedSocialCreditIdentifier())) {
-                body.setCarrier(nfptjConfig.getUnifiedSocialCreditIdentifier());
+                body.setUnifiedSocialCreditIdentifier(nfptjConfig.getUnifiedSocialCreditIdentifier());
             }
             if (StrUtil.isBlank(body.getPermitNumber())) {
-                body.setCarrier(nfptjConfig.getPermitNumber());
+                body.setPermitNumber(nfptjConfig.getPermitNumber());
             }
         }
-
         return send("WLHY_YD1001", "电子运单", toXml(ro), messageId);
     }
 
