@@ -38,7 +38,6 @@ public class NFPTJ {
 
     public NFPTJ(NFPTJConfig nfptjConfig) {
         this.nfptjConfig = nfptjConfig;
-        token();
     }
 
     /**
@@ -62,6 +61,9 @@ public class NFPTJ {
                 .set("userId", userId)
                 .set("password", DigestUtil.md5Hex(password))
                 .toString());
+        if (!JSONUtil.isTypeJSONObject(json)) {
+            throw new RuntimeException(MessageFormat.format("【申请令牌】接口应答内容不是json object格式：{0}", json));
+        }
         JSONObject jsonObject = JSONUtil.parseObj(json);
         if (!"00000".equals(jsonObject.getStr("code"))) {
             throw new RuntimeException(json);
@@ -203,6 +205,9 @@ public class NFPTJ {
                 .set("UserId", userId)
                 .set("Token", token)
                 .toString());
+        if (!JSONUtil.isTypeJSONObject(json)) {
+            throw new RuntimeException(MessageFormat.format("【上报接口】接口应答内容不是json object格式：{0}", json));
+        }
         JSONObject jsonObject = JSONUtil.parseObj(json);
         String code = jsonObject.getStr("code");
         if ("20000".equals(code)) {
